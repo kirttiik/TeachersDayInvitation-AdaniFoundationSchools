@@ -240,6 +240,12 @@ function checkReveal() {
                 colors: ['#4285F4', '#34A853', '#FBBC05', '#EA4335']
             });
         }
+
+        // Play celebration music
+        const music = document.getElementById('celebration-music');
+        if (music) {
+            music.play().catch(e => console.log("Audio play failed (browser might require interaction):", e));
+        }
     }
 }
 

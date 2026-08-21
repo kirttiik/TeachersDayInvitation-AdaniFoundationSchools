@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gpay Scratch Card</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="scratch">
-        <img src="winning-card.jpg" alt="Hidden Image">
+        <div id="door-container">
+            <div class="door door-left"></div>
+            <div class="door door-right"></div>
+            <div class="click-btn">𝑻𝒂𝒑</div>
+        </div>
+        <img src="winning-card.jpeg" alt="Hidden Image">
         <canvas></canvas>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,32 +1,333 @@
-body{
+body {
+    margin: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #444;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     user-select: none;
-
-}
-#scratch{
     position: relative;
-    width: 370px;
-    height: 370px;
-    aspect-ratio: square;
-    border: 2px solid #ffffff;
-    box-shadow:  0 5px 15px rgba(255, 251, 251, 0.3);
-    background-color:  #ecf0f1;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background-image: url('winning-card.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(40px) brightness(0.65);
+    z-index: -1;
+}
+
+@keyframes borderGlowBefore {
+    0% {
+        box-shadow: 0 0 10px rgba(191, 149, 63, 0.5), 0 0 20px rgba(191, 149, 63, 0.5);
+        border-color: #bf953f;
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(252, 246, 186, 0.8), 0 0 40px rgba(252, 246, 186, 0.8);
+        border-color: #fcf6ba;
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(191, 149, 63, 0.5), 0 0 20px rgba(191, 149, 63, 0.5);
+        border-color: #bf953f;
+    }
+}
+
+@keyframes borderGlowAfter {
+    0% {
+        box-shadow: 0 0 15px rgba(66, 133, 244, 0.6), 0 0 30px rgba(66, 133, 244, 0.6);
+        border-color: #4285f4;
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(52, 168, 83, 0.8), 0 0 60px rgba(52, 168, 83, 0.8);
+        border-color: #34A853;
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(66, 133, 244, 0.6), 0 0 30px rgba(66, 133, 244, 0.6);
+        border-color: #4285f4;
+    }
+}
+
+#scratch {
+    position: relative;
+    width: 90vw;
+    max-width: 500px;
+    max-height: 85vh;
+    aspect-ratio: 4392 / 6216;
+    border: 3px solid #bf953f;
+    animation: borderGlowBefore 2s infinite ease-in-out;
+    box-shadow: 0 5px 15px rgba(255, 251, 251, 0.3);
+    background-color: #ecf0f1;
     overflow: hidden;
     border-radius: 15px;
-    
+
 }
-#scratch img{
+
+#scratch img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-#scratch canvas{
+
+@keyframes foilShimmer {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+
+    50% {
+        filter: brightness(1.08) contrast(1.05);
+    }
+
+    100% {
+        filter: brightness(1) contrast(1);
+    }
+}
+
+#scratch canvas {
     position: absolute;
     top: 0;
     left: 0;
+    transition: opacity 0.5s ease-out;
+    animation: foilShimmer 4s infinite ease-in-out;
 }
+
+/* Animations added for realistic effect */
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.revealed {
+    animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, borderGlowAfter 3s infinite ease-in-out;
+}
+
+.fade-out {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle at 30% 30%, #fff, #ffd700);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
+}
+
+/* Shake effect during scratching */
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(1deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-1deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.scratching {
+    animation: shake 0.3s ease-in-out infinite;
+}
+
+/* Shimmer effect across the revealed card */
+#scratch::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(30deg) translateY(-100%);
+    pointer-events: none;
+    transition: none;
+    z-index: 5;
+}
+
+#scratch.revealed::after {
+    animation: shimmer 2s ease-in-out forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: rotate(30deg) translateY(-100%);
+    }
+
+    100% {
+        transform: rotate(30deg) translateY(100%);
+    }
+}
+
+/* Door Animation (Cloth Effect) */
+#door-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    display: flex;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.door {
+    width: 50%;
+    height: 100%;
+    background-image: url('door_image.png');
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.door-left {
+    background-position: left center;
+    transform-origin: left center;
+}
+
+.door-right {
+    background-position: right center;
+    transform-origin: right center;
+}
+
+
+
+@keyframes curtainDrawLeft {
+    0% {
+        transform: perspective(1200px) scaleX(1) translateX(0) translateZ(0) rotateY(0);
+        border-radius: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+    }
+
+    40% {
+        transform: perspective(1200px) scaleX(0.75) translateX(-5%) translateZ(20px) rotateY(-15deg);
+        border-radius: 0 10% 5% 0;
+        box-shadow: inset -20px 0 30px rgba(0, 0, 0, 0.7), inset 10px 0 20px rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        filter: drop-shadow(15px 10px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    85% {
+        transform: perspective(1200px) scaleX(0.2) translateX(-35%) translateZ(40px) rotateY(-30deg);
+        border-radius: 0 30% 15% 0;
+        box-shadow: inset -40px 0 40px rgba(0, 0, 0, 0.9), inset 20px 0 30px rgba(255, 255, 255, 0.3);
+        opacity: 1;
+        filter: drop-shadow(30px 20px 20px rgba(0, 0, 0, 0.6));
+    }
+
+    100% {
+        transform: perspective(1200px) scaleX(0.05) translateX(-50%) translateZ(50px) rotateY(-40deg);
+        opacity: 0;
+    }
+}
+
+@keyframes curtainDrawRight {
+    0% {
+        transform: perspective(1200px) scaleX(1) translateX(0) translateZ(0) rotateY(0);
+        border-radius: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+    }
+
+    40% {
+        transform: perspective(1200px) scaleX(0.75) translateX(5%) translateZ(20px) rotateY(15deg);
+        border-radius: 10% 0 0 5%;
+        box-shadow: inset 20px 0 30px rgba(0, 0, 0, 0.7), inset -10px 0 20px rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        filter: drop-shadow(-15px 10px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    85% {
+        transform: perspective(1200px) scaleX(0.2) translateX(35%) translateZ(40px) rotateY(30deg);
+        border-radius: 30% 0 0 15%;
+        box-shadow: inset 40px 0 40px rgba(0, 0, 0, 0.9), inset -20px 0 30px rgba(255, 255, 255, 0.3);
+        opacity: 1;
+        filter: drop-shadow(-30px 20px 20px rgba(0, 0, 0, 0.6));
+    }
+
+    100% {
+        transform: perspective(1200px) scaleX(0.05) translateX(50%) translateZ(50px) rotateY(40deg);
+        opacity: 0;
+    }
+}
+
+/* Open State */
+#door-container.open .door-left {
+    animation: curtainDrawLeft 1s cubic-bezier(0.25, .25, 0.5, .5) forwards;
+}
+
+#door-container.open .door-right {
+    animation: curtainDrawRight 1s cubic-bezier(0.25, .25, 0.5, .5) forwards;
+}
+
+#door-container.hidden {
+    display: none;
+}
+
+/* Beautiful Animated Click Button */
+.click-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 24px;
+    letter-spacing: 2px;
+    padding: 15px 35px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    border: 3px solid transparent;
+    border-radius: 40px;
+    z-index: 30;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out;
+    animation: goldBorderPulse 2s infinite ease-in-out;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+@keyframes goldBorderPulse {
+    0% { border-color: #bf953f; box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 10px rgba(191,149,63,0.5); }
+    50% { border-color: #fcf6ba; box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 25px rgba(252,246,186,0.9), inset 0 0 15px rgba(252,246,186,0.5); }
+    100% { border-color: #bf953f; box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 10px rgba(191,149,63,0.5); }
+}
+
+#door-container.open .click-btn {
+    opacity: 0;
+}

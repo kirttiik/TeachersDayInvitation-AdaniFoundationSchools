@@ -68,6 +68,13 @@ body::before {
     }
 }
 
+#top-logo {
+    max-width: 250px;
+    width: 80%;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
 #scratch {
     position: relative;
     width: 90vw;

@@ -7,7 +7,17 @@ body {
     min-height: 100vh;
     user-select: none;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 body::before {
@@ -300,46 +310,51 @@ body::before {
     display: none;
 }
 
-/* Calendar Button */
-#calendar-btn {
-    position: absolute;
-    bottom: -80px; /* Position it below the image initially */
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
+/* Actions Container */
+.actions-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     opacity: 0;
     pointer-events: none;
-    color: #fff;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: 1s;
+    transform: translateY(20px);
+}
+
+.actions-container.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Calendar Button */
+#calendar-btn {
+    color: #4a3300;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 13px; /* Smaller font so it fits on one line */
+    font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 10px 20px; /* Reduced padding */
-    background: linear-gradient(135deg, #bf953f, #aa771c);
-    border: 2px solid #fcf6ba;
+    letter-spacing: 1.5px;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #fcf6ba, #d4af37);
+    border: none;
     border-radius: 30px;
-    z-index: 40;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    white-space: nowrap; /* Force single line */
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition-delay: 1s; /* Wait for image to be revealed fully before popping up */
+    transition: all 0.3s ease;
 }
 
 #calendar-btn:hover {
-    background: linear-gradient(135deg, #d4af37, #bf953f);
+    background: linear-gradient(135deg, #bf953f, #aa771c);
+    color: #fff;
     box-shadow: 0 6px 20px rgba(0,0,0,0.7), 0 0 15px rgba(252,246,186,0.5);
-    transform: translateX(-50%) translateY(18px) scale(1.05);
-}
-
-#scratch.revealed #calendar-btn {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-    bottom: -60px; /* Position firmly below the card's bottom edge */
+    transform: scale(1.05);
 }
 
 /* Beautiful Animated Click Button */

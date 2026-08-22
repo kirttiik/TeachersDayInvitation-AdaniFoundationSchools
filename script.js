@@ -232,6 +232,11 @@ function checkReveal() {
         scratchCard.classList.add('revealed');
         scratchCard.classList.remove('scratching');
 
+        const actionsContainer = document.getElementById('actions-container');
+        if (actionsContainer) {
+            actionsContainer.classList.add('visible');
+        }
+
         if (typeof confetti === 'function') {
             confetti({
                 particleCount: 150,

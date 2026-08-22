@@ -8,6 +8,13 @@ let textOpacity = 0;
 // Door logic
 doorContainer.addEventListener('click', function () {
     doorContainer.classList.add('open');
+    
+    // Hide the top image smoothly
+    const topLogo = document.getElementById('top-logo');
+    if (topLogo) {
+        topLogo.classList.add('hidden');
+    }
+
     setTimeout(() => {
         isDoorOpen = true; // Start text fade-in AFTER door finishes opening
         doorContainer.classList.add('hidden');
@@ -235,6 +242,11 @@ function checkReveal() {
         const actionsContainer = document.getElementById('actions-container');
         if (actionsContainer) {
             actionsContainer.classList.add('visible');
+        }
+
+        const topLogo = document.getElementById('top-logo');
+        if (topLogo) {
+            topLogo.classList.add('hidden');
         }
 
         if (typeof confetti === 'function') {

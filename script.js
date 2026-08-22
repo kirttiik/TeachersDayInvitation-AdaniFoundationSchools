@@ -154,6 +154,7 @@ canvas.addEventListener('mouseup', function (e) {
     isDrawing = false;
     isMouseDown = false;
     scratchCard.classList.remove('scratching');
+    checkReveal(true);
 });
 canvas.addEventListener('mouseleave', function (e) {
     isDrawing = false;
@@ -180,6 +181,7 @@ canvas.addEventListener('touchend', function (e) {
     e.preventDefault();
     isDrawing = false;
     scratchCard.classList.remove('scratching');
+    checkReveal(true);
 });
 
 function createParticle(x, y) {
@@ -218,9 +220,12 @@ function createParticle(x, y) {
     requestAnimationFrame(animate);
 }
 
-function checkReveal() {
-    scratchCount++;
-    if (scratchCount % 8 !== 0) return;
+let lastRevealTime = 0;
+
+function checkReveal(force = false) {
+    const now = Date.now();
+    if (!force && now - lastRevealTime < 150) return;
+    lastRevealTime = now;
 
     const imageData = offCtx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height);
     const pixels = imageData.data;
@@ -286,6 +291,8 @@ function checkReveal() {
     }
 }
 
+let lastParticlePos = { x: -100, y: -100 };
+
 function scratch(x, y) {
     if (isRevealed) return;
 
@@ -294,8 +301,10 @@ function scratch(x, y) {
     offCtx.arc(x, y, 40, 0, 2 * Math.PI);
     offCtx.fill();
 
-    for (let i = 0; i < 3; i++) {
+    const dist = Math.hypot(x - lastParticlePos.x, y - lastParticlePos.y);
+    if (dist > 15) {
         createParticle(x, y);
+        lastParticlePos = { x, y };
     }
 
     checkReveal();

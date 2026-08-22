@@ -252,22 +252,62 @@ body::before {
 
 @keyframes curtainDrawLeft {
     0% {
-        transform: perspective(1200px) rotateY(0deg);
+        transform: perspective(1200px) scaleX(1) translateX(0) translateZ(0) rotateY(0);
+        border-radius: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         opacity: 1;
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
     }
+
+    40% {
+        transform: perspective(1200px) scaleX(0.75) translateX(-5%) translateZ(20px) rotateY(-15deg);
+        border-radius: 0 10% 5% 0;
+        box-shadow: inset -20px 0 30px rgba(0, 0, 0, 0.7), inset 10px 0 20px rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        filter: drop-shadow(15px 10px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    85% {
+        transform: perspective(1200px) scaleX(0.2) translateX(-35%) translateZ(40px) rotateY(-30deg);
+        border-radius: 0 30% 15% 0;
+        box-shadow: inset -40px 0 40px rgba(0, 0, 0, 0.9), inset 20px 0 30px rgba(255, 255, 255, 0.3);
+        opacity: 1;
+        filter: drop-shadow(30px 20px 20px rgba(0, 0, 0, 0.6));
+    }
+
     100% {
-        transform: perspective(1200px) rotateY(-105deg);
+        transform: perspective(1200px) scaleX(0.05) translateX(-50%) translateZ(50px) rotateY(-40deg);
         opacity: 0;
     }
 }
 
 @keyframes curtainDrawRight {
     0% {
-        transform: perspective(1200px) rotateY(0deg);
+        transform: perspective(1200px) scaleX(1) translateX(0) translateZ(0) rotateY(0);
+        border-radius: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         opacity: 1;
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
     }
+
+    40% {
+        transform: perspective(1200px) scaleX(0.75) translateX(5%) translateZ(20px) rotateY(15deg);
+        border-radius: 10% 0 0 5%;
+        box-shadow: inset 20px 0 30px rgba(0, 0, 0, 0.7), inset -10px 0 20px rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        filter: drop-shadow(-15px 10px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    85% {
+        transform: perspective(1200px) scaleX(0.2) translateX(35%) translateZ(40px) rotateY(30deg);
+        border-radius: 30% 0 0 15%;
+        box-shadow: inset 40px 0 40px rgba(0, 0, 0, 0.9), inset -20px 0 30px rgba(255, 255, 255, 0.3);
+        opacity: 1;
+        filter: drop-shadow(-30px 20px 20px rgba(0, 0, 0, 0.6));
+    }
+
     100% {
-        transform: perspective(1200px) rotateY(105deg);
+        transform: perspective(1200px) scaleX(0.05) translateX(50%) translateZ(50px) rotateY(40deg);
         opacity: 0;
     }
 }

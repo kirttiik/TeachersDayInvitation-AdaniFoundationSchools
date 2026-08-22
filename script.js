@@ -232,11 +232,16 @@ function checkReveal() {
 
     const percentage = (scratchedPixels / (pixels.length / 4)) * 100;
 
-    // Update progress text (map 0-50 actual percentage to 0-100 displayed percentage)
+    // Update progress text and visual bar
     const progressEl = document.getElementById('scratch-progress');
     if (progressEl) {
         let displayPercent = Math.min(100, Math.floor((percentage / 50) * 100));
-        progressEl.textContent = `Scratched: ${displayPercent}%`;
+        
+        const textEl = document.getElementById('progress-text');
+        if (textEl) textEl.textContent = `Scratched: ${displayPercent}%`;
+        
+        const fillEl = document.getElementById('progress-bar-fill');
+        if (fillEl) fillEl.style.width = `${displayPercent}%`;
     }
 
     if (percentage > 50) {

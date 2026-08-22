@@ -330,6 +330,28 @@ body::before {
     transform: translateY(0);
 }
 
+/* Date and Time Row */
+.date-time-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.info-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fcf6ba; /* Matches the golden accents */
+    border: 1px solid rgba(252, 246, 186, 0.4);
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: transparent;
+}
+
 /* Calendar Button */
 #calendar-btn {
     color: #4a3300;

@@ -326,6 +326,23 @@ body::before {
     display: none;
 }
 
+/* Progress Indicator */
+#scratch-progress {
+    color: #fcf6ba;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#scratch-progress.show {
+    opacity: 1;
+}
+
 /* Actions Container */
 .actions-container {
     margin-top: 30px;

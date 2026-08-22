@@ -18,6 +18,10 @@ doorContainer.addEventListener('click', function () {
     setTimeout(() => {
         isDoorOpen = true; // Start text fade-in AFTER door finishes opening
         doorContainer.classList.add('hidden');
+        
+        // Show progress indicator
+        const progress = document.getElementById('scratch-progress');
+        if (progress) progress.classList.add('show');
     }, 1000); // Wait for the 1s curtain draw transition
 });
 const ctx = canvas.getContext('2d');
@@ -228,9 +232,20 @@ function checkReveal() {
 
     const percentage = (scratchedPixels / (pixels.length / 4)) * 100;
 
+    // Update progress text (map 0-50 actual percentage to 0-100 displayed percentage)
+    const progressEl = document.getElementById('scratch-progress');
+    if (progressEl) {
+        let displayPercent = Math.min(100, Math.floor((percentage / 50) * 100));
+        progressEl.textContent = `Scratched: ${displayPercent}%`;
+    }
+
     if (percentage > 50) {
         isRevealed = true;
         cancelAnimationFrame(animationId);
+
+        if (progressEl) {
+            progressEl.classList.remove('show');
+        }
 
         ctx.globalCompositeOperation = 'destination-out';
         ctx.drawImage(offscreenCanvas, 0, 0);

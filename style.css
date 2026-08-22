@@ -334,13 +334,16 @@ body::before {
     align-items: center;
     gap: 8px;
     margin-top: 20px;
+    max-height: 0px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin 0.3s ease;
     pointer-events: none;
+    overflow: hidden;
 }
 
 #scratch-progress.show {
     opacity: 1;
+    max-height: 100px;
 }
 
 .progress-text {
@@ -370,7 +373,7 @@ body::before {
 
 /* Actions Container */
 .actions-container {
-    margin-top: 30px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;

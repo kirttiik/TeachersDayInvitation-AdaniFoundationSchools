@@ -310,11 +310,11 @@ body::before {
     pointer-events: none;
     color: #fff;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
+    font-size: 13px; /* Smaller font so it fits on one line */
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 12px 24px;
+    letter-spacing: 1px;
+    padding: 10px 20px; /* Reduced padding */
     background: linear-gradient(135deg, #bf953f, #aa771c);
     border: 2px solid #fcf6ba;
     border-radius: 30px;
@@ -324,6 +324,7 @@ body::before {
     align-items: center;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    white-space: nowrap; /* Force single line */
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transition-delay: 1s; /* Wait for image to be revealed fully before popping up */
 }
@@ -338,7 +339,7 @@ body::before {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
-    bottom: 20px; /* Slide up inside the card bottom edge */
+    bottom: -60px; /* Position firmly below the card's bottom edge */
 }
 
 /* Beautiful Animated Click Button */
